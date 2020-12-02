@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,6 +41,20 @@ public class UserController {
 		return "회원가입 완료";
 	}
 	
+	@GetMapping("/user/{id}")
+	public User detale(@PathVariable long id) {
+		User user = userRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
+			@Override
+			public IllegalArgumentException get() {
+				// TODO Auto-generated method stub
+				return new IllegalArgumentException("해당유저는 없습니다. id : "+id);
+			}
+			
+		});
+		
+		return user;
+	}
+	
 	@Transactional
 	@PutMapping("/userUpdate/{id}") 
 	public String userUpdate(@PathVariable long id, @RequestBody User requestUser) {
@@ -65,13 +80,13 @@ public class UserController {
 	
 	
 	@PostMapping("/EyeUpdate/{id}")
-	public String EyeUpdate(@PathVariable int id, @RequestBody EyeCheck eyeCheck) {
+	public String EyeUpdate(@PathVariable long id, @RequestBody EyeCheck eyeCheck) {
 		eyeRepository.save(eyeCheck);
 		return "홍채등록 완료";
 	}
 	
 	@PostMapping("/VacationInsert/{id}")
-	public String VacationInsert(@PathVariable int id, @RequestBody Vacation vacation) {
+	public String VacationInsert(@PathVariable long id, @RequestBody Vacation vacation) {
 		vacationRepository.save(vacation);
 		return "휴가등록 완료";
 	}
