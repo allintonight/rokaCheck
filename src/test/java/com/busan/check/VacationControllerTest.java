@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -225,6 +226,19 @@ public class VacationControllerTest {
 		
 		ResponseEntity<TestPage<Object>> response = getVacationsOfMyUnit(admin.getUsername(), new ParameterizedTypeReference<TestPage<Object>>() {});
 		assertThat(response.getBody().getTotalElements()).isEqualTo(1);
+	}
+	@Test @DisplayName("휴가 상태 COMPLATED로 변경시 status 200 받음")
+	void putVacationsOfUser_whenVacationStatusIsUsing_receiveOk() {
+		User user = userRepository.save(TestUtil.createValidUser());
+		vacationService.save(TestUtil.createUsingVacation(), "14-71017860");
+		putVacationsOfUser(user.getUsername(), null, Object.class);
+		
+	}
+	
+	
+	private <T> ResponseEntity<T> putVacationsOfUser(String username, HttpEntity<?> requestEntity, Class<T> responseType) {
+		String path = API_1_0_VACATIONS + "/" + username;
+		return testRestTemplate.exchange(path, HttpMethod.PUT, requestEntity, responseType);
 	}
 	
 	private <T> ResponseEntity<T> getVacationsOfMyUnit(String username, ParameterizedTypeReference<T> responseType) {

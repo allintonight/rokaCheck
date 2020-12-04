@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 
-<h1>R O K A 출타관리시스템 관리자 수정 페이지</h1>
+<a href="/main"><h1>R O K A 출타관리시스템 관리자 수정 페이지</h1></a>
 <form>
+	<div class="form-group">
+		<label for="username">군번:</label> <input type="username" class="form-control" id="username" value="${principal.username}"  readonly="readonly">
 
 	<div class="form-group">
-		<label for="pwd">패스워드:</label> <input type="password" class="form-control" id="pwd" placeholder="비밀번호를 입력하세요"  required>
+		<label for="pwd">패스워드:</label> <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요"  required>
 		<div class="valid-feedback">Valid.</div>
 		<div class="invalid-feedback">특수문자포함 10자리이상 입력</div>
 
@@ -62,7 +68,7 @@
 </form>
 
 <button id="btn-adminUpdate" class="btn btn-primary"> 관리자 수정 </button>
-<script src="/js/update.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/update.js"></script>

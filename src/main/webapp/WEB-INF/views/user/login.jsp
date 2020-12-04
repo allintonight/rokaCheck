@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<h1>R O K A 출타관리시스템</h1>
+<a href="/main"><h1>R O K A 출타관리시스템</h1></a>
 <form action="/auth/loginProc" method="post">
   <div class="form-group">
     <label for="email">군번</label>

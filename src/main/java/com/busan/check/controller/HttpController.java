@@ -14,6 +14,7 @@ import com.busan.check.model.Vacation;
 import com.busan.check.repository.UserRepository;
 import com.busan.check.service.VacationService;
 
+
 @Controller
 public class HttpController {
 	
@@ -22,6 +23,7 @@ public class HttpController {
 	
 	@Autowired
 	VacationService vacationService;
+
 	
 	@GetMapping({"/", ""})
 	public String login() {
