@@ -26,10 +26,10 @@ public class Vacation {
 	private long no;
 	
 	@Column(columnDefinition = "DATE")
-	private LocalDate checkIn;
+	private LocalDate checkin;
 	
 	@Column(columnDefinition = "DATE")
-	private LocalDate checkOut;
+	private LocalDate checkout;
 	
 	@Column(length = 45)
 	private String type;

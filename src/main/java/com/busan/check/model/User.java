@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -22,8 +24,14 @@ import lombok.NoArgsConstructor;
 public class User {
 	
 	@Id
-	@Column(nullable = false, updatable = false, columnDefinition = "INT(11)")
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int no;
+	
+	@Column(length = 20, unique = true )
+	private String username;
+	
+	@Column(length = 150)
+	private String password;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Vacation> vacations;
@@ -35,7 +43,7 @@ public class User {
 	private String unit;
 	
 	@Column(length = 10)
-	private String username;
+	private String name;
 	
 	@Column(length = 15)
 	private String phone;

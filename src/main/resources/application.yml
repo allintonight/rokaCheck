@@ -1,7 +1,7 @@
 server:
   port: 8090
   servlet:
-    context-path: /check
+    context-path: /
     encoding:
       charset: UTF-8
       enabled: true
@@ -10,7 +10,7 @@ server:
 spring:
   mvc:
     view:
-      prefix: /WEB-INF/jsp/
+      prefix: /WEB-INF/views/
       suffix: .jsp
       
   datasource:
