@@ -3,11 +3,15 @@ package com.busan.check.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.busan.check.constraint.CheckOutIsAfterCheckIn;
+import com.busan.check.model.converter.VacationStatusConverter;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +20,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
+@CheckOutIsAfterCheckIn
 public class Vacation {
 	
 	@Id
@@ -29,10 +32,11 @@ public class Vacation {
 	private LocalDate checkin;
 	
 	@Column(columnDefinition = "DATE")
-	private LocalDate checkout;	
+	private LocalDate checkout;
 	
 	@Column(length = 20)
-	private String status;
+	@Convert(converter = VacationStatusConverter.class)
+	private VacationStatus status;
 	
 	@ManyToOne
 	private User user;

@@ -20,7 +20,6 @@ import com.busan.check.model.User;
 import com.busan.check.model.Vacation;
 import com.busan.check.repository.EyeRepository;
 import com.busan.check.repository.UserRepository;
-import com.busan.check.repository.VacationRepository;
 import com.busan.check.service.UserService;
 
 @RestController
@@ -34,9 +33,6 @@ public class UserApiController {
 
 	@Autowired
 	private EyeRepository eyeRepository;
-	
-	@Autowired
-	private VacationRepository vacationRepository;
 	
 
 

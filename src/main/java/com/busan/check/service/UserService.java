@@ -7,11 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import com.busan.check.model.User;
-import com.busan.check.model.Vacation;
+
 import com.busan.check.repository.UserRepository;
 import com.busan.check.repository.VacationRepository;
 
@@ -128,11 +127,6 @@ public class UserService {
 		});
 		return userRepository.findbyusername(username);
 	}
-	public User 복귀완료(String username) {
-		userRepository.findByUsername(username).orElseThrow(() -> {
-			return new IllegalArgumentException("사용자 아이디 정보조회 실패");
-		});
-		return userRepository.findbyusername(username);
-	}
+
 
 }
