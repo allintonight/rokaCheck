@@ -61,6 +61,6 @@ public class User {
 	private String position;
 	
 	@Column(length = 100)
-	private String adress;
+	private String address;
 	
 }

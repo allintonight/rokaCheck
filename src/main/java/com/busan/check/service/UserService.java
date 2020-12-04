@@ -39,8 +39,8 @@ public class UserService {
 	public void 관리자수정(User requestUser) {
 		Optional<User> user = userRepository.findByUsername(requestUser.getUsername());
         user.ifPresent(selectUser->{
-        	if (requestUser.getAdress() != null) {
-    			selectUser.setAdress(requestUser.getAdress());
+        	if (requestUser.getAddress() != null) {
+    			selectUser.setAddress(requestUser.getAddress());
     		}
     		if (requestUser.getPassword() != null) {
     			selectUser.setPassword(requestUser.getPassword());
@@ -78,8 +78,8 @@ public class UserService {
 	public void 병사수정(User requestUser) {
 		Optional<User> user = userRepository.findByUsername(requestUser.getUsername());
         user.ifPresent(selectUser->{
-        	if (requestUser.getAdress() != null) {
-    			selectUser.setAdress(requestUser.getAdress());
+        	if (requestUser.getAddress() != null) {
+    			selectUser.setAddress(requestUser.getAddress());
     		}
     		if (requestUser.getEyeCheck() != null) {
     			selectUser.setEyeCheck(requestUser.getEyeCheck());

@@ -20,7 +20,6 @@ import com.busan.check.model.User;
 import com.busan.check.model.Vacation;
 import com.busan.check.repository.EyeRepository;
 import com.busan.check.repository.UserRepository;
-import com.busan.check.repository.VacationRepository;
 import com.busan.check.service.UserService;
 
 @RestController
@@ -34,9 +33,6 @@ public class UserApiController {
 
 	@Autowired
 	private EyeRepository eyeRepository;
-	
-	@Autowired
-	private VacationRepository vacationRepository;
 	
 
 
@@ -60,7 +56,7 @@ public class UserApiController {
 	@PostMapping("/auth/userJoinProc")
 	public ResponseDto<Integer> usersave(@RequestBody User user) {
 		System.out.println("병사등록API호출됨");
-		System.out.println("주소"+user.getAdress());
+		System.out.println("주소"+user.getAddress());
 		System.out.println("군번"+user.getUsername());
 		System.out.println("관리자"+user.getIsAdmin());
 		System.out.println("폰번호"+user.getPhone());

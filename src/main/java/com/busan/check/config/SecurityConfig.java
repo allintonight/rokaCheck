@@ -8,8 +8,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 
 
 @Configuration 
@@ -35,17 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	// 3. 필터링
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http
 		.csrf().disable()
 	    .authorizeRequests()
 	    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/auth/**")
 	    .permitAll()
-	    .anyRequest().authenticated()
-	    .and()
-	    .formLogin()
-	    .loginPage("/")
-	    .loginProcessingUrl("/auth/loginProc")
-	    .defaultSuccessUrl("/main");
+	    .anyRequest().authenticated();
+
 	}
 	
 	// 참고 : .headers().frameOptions().disable() // 아이프레임 접근 막기
