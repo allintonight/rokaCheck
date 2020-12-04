@@ -9,11 +9,11 @@ $('#btn-adminJoin').on('click', function() {
 		};
 
 $.ajax({
-		type : "POST",
-		url : "/auth/adminJoinProc",
-		data : JSON.stringify(data),
-		contentType : "application/json; charset=utf-8",
-		dataType : "json"
+		type: "POST",
+		url: "/auth/adminJoinProc",
+		data: JSON.stringify(data),
+		contentType: "application/json; charset=utf-8",
+		dataType: "json"
 	}).done(function(r) {
 		if (r.status == 200) {
 			console.log(r);
@@ -39,7 +39,7 @@ $('#btn-userJoin').on('click', function() {
 	var data =  {
 			username: $("#username").val(),
 			name: $("#name").val(),
-			adress: $("#adress").val(),
+			address: $("#address").val(),
 			position: $("#position").val(),
 			ranks: $("#ranks").val(),
 			unit: $("#unit1").val() + $("#unit2").val() + $("#unit3").val() + $("#unit4").val(),
@@ -50,14 +50,14 @@ $('#btn-userJoin').on('click', function() {
 	$.ajax({
 		type : 'POST',
 		url : '/userJoinProc',
-		data : JSON.stringify(data),
+		data: JSON.stringify(data),
 		contentType : 'application/json; charset=utf-8',
 		dataType : 'json'
 	}).done(function(r) {
 		if (r.status == 200) {
 			console.log(r);
 			alert('회원가입 성공');
-			location.href = '/main';
+			location.href = "/main";
 		} else {
 			if (r.msg == '아이디중복') {
 				console.log(r);

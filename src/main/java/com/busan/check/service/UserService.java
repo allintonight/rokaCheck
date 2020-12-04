@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.busan.check.model.User;
 import com.busan.check.model.Vacation;
@@ -16,117 +18,121 @@ import com.busan.check.repository.VacationRepository;
 //스프링이 컴포넌트 스캔을 통해 BEAN에 등록해줌
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private VacationRepository vacationRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encode;
-	
+
 	@Transactional
 	public void 회원가입(User user) {
-		String rawPassword = user.getPassword();	
+		String rawPassword = user.getPassword();
 		String encPassword = encode.encode(rawPassword);
 		user.setPassword(encPassword);
 		user.setIsAdmin(1);
-	
+
 		userRepository.save(user);
 	}
-	@Transactional
-	public void 관리자수정(User requestUser) {
-		Optional<User> user = userRepository.findByUsername(requestUser.getUsername());
-        user.ifPresent(selectUser->{
-        	if (requestUser.getAdress() != null) {
-    			selectUser.setAdress(requestUser.getAdress());
-    		}
-    		if (requestUser.getPassword() != null) {
-    			selectUser.setPassword(requestUser.getPassword());
-    		}
-    		if (requestUser.getEyeCheck() != null) {
-    			selectUser.setEyeCheck(requestUser.getEyeCheck());
-    		}
-    		if (requestUser.getIsAdmin() != 0) {
-    			selectUser.setIsAdmin(requestUser.getIsAdmin());
-    		}
-    		if (requestUser.getPhone() != null) {
-    			selectUser.setPhone(requestUser.getPhone());
-    		}
-    		if (requestUser.getPosition() != null) {
-    			selectUser.setPosition(requestUser.getPosition());
-    		}
-    		if (requestUser.getRanks() != null) {
-    			selectUser.setRanks(requestUser.getRanks());
-    		}
-    		if (requestUser.getUnit() != null) {
-    			selectUser.setUnit(requestUser.getUnit());
-    		}
-    		String rawPassword = requestUser.getPassword();	
-    		String encPassword = encode.encode(rawPassword);
-    		selectUser.setPassword(encPassword);
-    		selectUser.setIsAdmin(1);
-    		
-    		userRepository.save(selectUser);
-    	
-        });	
-		
-	}
-	
-	@Transactional
-	public void 병사수정(User requestUser) {
-		Optional<User> user = userRepository.findByUsername(requestUser.getUsername());
-        user.ifPresent(selectUser->{
-        	if (requestUser.getAdress() != null) {
-    			selectUser.setAdress(requestUser.getAdress());
-    		}
-    		if (requestUser.getEyeCheck() != null) {
-    			selectUser.setEyeCheck(requestUser.getEyeCheck());
-    		}
-    		
-    		if (requestUser.getIsAdmin() != 0) {
-    			selectUser.setIsAdmin(requestUser.getIsAdmin());
-    		}
-    		if (requestUser.getPhone() != null) {
-    			selectUser.setPhone(requestUser.getPhone());
-    		}
-    		
-    		if (requestUser.getParentsPhone() != null) {
-    			selectUser.setParentsPhone(requestUser.getParentsPhone());
-    		}
-    		
-    		if (requestUser.getPosition() != null) {
-    			selectUser.setPosition(requestUser.getPosition());
-    		}
-    		if (requestUser.getRanks() != null) {
-    			selectUser.setRanks(requestUser.getRanks());
-    		}
-    		if (requestUser.getUnit() != null) {
-    			selectUser.setUnit(requestUser.getUnit());
-    		}
 
-    		selectUser.setIsAdmin(0);
-    		
-    		userRepository.save(selectUser);
-    	
-        });
-        
-		
+	@Transactional
+	public void 병사회원가입(User user) {
+
+		userRepository.save(user);
 	}
+
+	@Transactional
+	public void 관리자수정(String username, User requestUser) {
+		Optional<User> user = userRepository.findByUsername(requestUser.getUsername());
+		user.ifPresent(selectUser -> {
+			if (requestUser.getAddress() != null) {
+				selectUser.setAddress(requestUser.getAddress());
+			}
+			if (requestUser.getPassword() != null) {
+				selectUser.setPassword(requestUser.getPassword());
+			}
+			if (requestUser.getEyeCheck() != null) {
+				selectUser.setEyeCheck(requestUser.getEyeCheck());
+			}
+			if (requestUser.getIsAdmin() != 0) {
+				selectUser.setIsAdmin(requestUser.getIsAdmin());
+			}
+			if (requestUser.getPhone() != null) {
+				selectUser.setPhone(requestUser.getPhone());
+			}
+			if (requestUser.getPosition() != null) {
+				selectUser.setPosition(requestUser.getPosition());
+			}
+			if (requestUser.getRanks() != null) {
+				selectUser.setRanks(requestUser.getRanks());
+			}
+			if (requestUser.getUnit() != null) {
+				selectUser.setUnit(requestUser.getUnit());
+			}
+			String rawPassword = requestUser.getPassword();
+			String encPassword = encode.encode(rawPassword);
+			selectUser.setPassword(encPassword);
+			selectUser.setIsAdmin(1);
+
+
+		});
+
+	}
+
+	@Transactional
+	public void 병사수정(String username,  User requestUser) {
+		userRepository.findByUsername(username).orElseThrow(()->{return new IllegalArgumentException("사용자 아이디 정보조회 실패");});
+		User selectUser = userRepository.findbyusername(username);
+		if (requestUser.getAddress() != null) {
+			selectUser.setAddress(requestUser.getAddress());
+		}
+		if (requestUser.getEyeCheck() != null) {
+			selectUser.setEyeCheck(requestUser.getEyeCheck());
+		}
+		if (requestUser.getIsAdmin() != 0) {
+			selectUser.setIsAdmin(requestUser.getIsAdmin());
+		}
+		if (requestUser.getPhone() != null) {
+			selectUser.setPhone(requestUser.getPhone());
+		}
+		if (requestUser.getPosition() != null) {
+			selectUser.setPosition(requestUser.getPosition());
+		}
+		if (requestUser.getRanks() != null) {
+			selectUser.setRanks(requestUser.getRanks());
+		}
+		if (requestUser.getUnit() != null) {
+			selectUser.setUnit(requestUser.getUnit());
+		}
+		if (requestUser.getParentsPhone() != null) {
+			selectUser.setUnit(requestUser.getParentsPhone());
+		}
+		
+		}
+	
+
 	@Transactional
 	public void 삭제(String username) {
-		Optional<User> user = userRepository.findByUsername(username);
-        user.ifPresent(selectUser->{   	    		
-    		userRepository.deleteByUsername(selectUser.getUsername());
-    	
-        });
+		userRepository.findByUsername(username).orElseThrow(() -> {
+			return new IllegalArgumentException("사용자 아이디 정보조회 실패");
+		});
+		userRepository.deleteByUsername(username);
 	}
-	@Transactional
-	public void 휴가등록(Vacation vacation) {
-	
-		vacationRepository.save(vacation);
+
+	public User 사용자정보(String username) {
+		userRepository.findByUsername(username).orElseThrow(() -> {
+			return new IllegalArgumentException("사용자 아이디 정보조회 실패");
+		});
+		return userRepository.findbyusername(username);
 	}
-	
+	public User 복귀완료(String username) {
+		userRepository.findByUsername(username).orElseThrow(() -> {
+			return new IllegalArgumentException("사용자 아이디 정보조회 실패");
+		});
+		return userRepository.findbyusername(username);
+	}
 
 }

@@ -5,7 +5,7 @@ $('#btn-delete').on('click', function() {
 
 	$.ajax({
 		type : "delete",
-		url : "/username",
+		url : "/user/"+username,
 		data : JSON.stringify(data),
 		contentType : "application/json; charset=utf-8",
 		dataType : "json"

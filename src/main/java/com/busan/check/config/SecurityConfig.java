@@ -38,12 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 	    .authorizeRequests()
-	    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/auth/**")
+	    .antMatchers("/css/**", "/images/**", "/js/**", "/auth/**")
 	    .permitAll()
 	    .anyRequest().authenticated()
 	    .and()
 	    .formLogin()
-	    .loginPage("/")
+	    .loginPage("/auth/login")
 	    .loginProcessingUrl("/auth/loginProc")
 	    .defaultSuccessUrl("/main");
 	}

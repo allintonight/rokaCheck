@@ -57,19 +57,19 @@ public class UserApiController {
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	@PostMapping("/auth/userJoinProc")
+	
+	@PostMapping("/userJoinProc")
 	public ResponseDto<Integer> usersave(@RequestBody User user) {
 		System.out.println("병사등록API호출됨");
-		System.out.println("주소"+user.getAdress());
+		System.out.println("주소"+user.getAddress());
 		System.out.println("군번"+user.getUsername());
-		System.out.println("관리자"+user.getIsAdmin());
-		System.out.println("폰번호"+user.getPhone());
-		System.out.println("비밀번호"+user.getPassword());
+		System.out.println("폰번호"+user.getPhone());;
 		System.out.println("사단"+user.getUnit());
 		System.out.println("이름"+user.getName());
 		System.out.println("계급"+user.getRanks());
+		System.out.println("부모님폰"+user.getParentsPhone());
 		
-		userService.회원가입(user);
+		userService.병사회원가입(user);
 		
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
@@ -78,12 +78,6 @@ public class UserApiController {
 	@DeleteMapping("/user/{username}")
 	public  ResponseDto<Integer>  detale(@PathVariable String username) {
 		System.out.println("회원삭제API호출");
-		User user = userRepository.findByUsername(username).orElseThrow(new Supplier<IllegalArgumentException>() {
-			@Override
-			public IllegalArgumentException get() {
-				return new IllegalArgumentException("해당유저는 없습니다. 군번 : " + username);
-			}
-		});
 		
 		userService.삭제(username);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
@@ -93,47 +87,29 @@ public class UserApiController {
 	@PutMapping("/admin/{username}")
 	public ResponseDto<Integer> adminUpdate(@PathVariable String username, @RequestBody User requestUser) {
 		System.out.println("관리자수정API호출");
-		User user = userRepository.findByUsername(username).orElseThrow(new Supplier<IllegalArgumentException>() {
-			@Override
-			public IllegalArgumentException get() {
-				// TODO Auto-generated method stub
-				return new IllegalArgumentException("해당유저는 없습니다. 군번 : " + username);
-			}
-
-		});
+		userService.관리자수정(username, requestUser);	
 		
-
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
+	
 	@Transactional
 	@PutMapping("/user/{username}")
 	public ResponseDto<Integer> userUpdate(@PathVariable String username, @RequestBody User requestUser) {
 		System.out.println("병사수정API호출");
-		User user = userRepository.findByUsername(username).orElseThrow(new Supplier<IllegalArgumentException>() {
-			@Override
-			public IllegalArgumentException get() {
-				// TODO Auto-generated method stub
-				return new IllegalArgumentException("해당유저는 없습니다. 군번 : " + username);
-			}
-
-		});
-		
+		userService.병사수정(username, requestUser);		
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	@PostMapping("/vacation/{username}")
-	public ResponseDto<Integer> vacationsave(@RequestBody Vacation vacation) {
-		System.out.println("휴가등록API호출됨");
 
-		
-		userService.휴가등록(vacation);
-		
-
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-	}
 
 	@PostMapping("/eye/{username}")
 	public ResponseDto<Integer> EyeUpdate(@PathVariable String username, @RequestBody EyeCheck eyeCheck) {
+		eyeRepository.save(eyeCheck);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
+	@PostMapping("/eyecheck/{username}")
+	public ResponseDto<Integer> EyeCheck(@PathVariable String username, @RequestBody EyeCheck eyeCheck) {
 		eyeRepository.save(eyeCheck);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}

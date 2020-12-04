@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<h1>R O K A 출타관리시스템 병사 등록 페이지</h1>
+<a href="/main"><h1>R O K A 출타관리시스템 병사 등록 페이지</h1></a>
 <form>
 	<div class="form-group">
 		<label for="username">군번 :</label> <input type="text" class="form-control" id="username" placeholder="군번을 입력하세요"  required>
@@ -13,7 +13,7 @@
 		<div class="valid-feedback">Valid.</div>
 	</div>
 		<div class="form-group">
-		<label for="adress">주소:</label> <input type="text" class="form-control" id="adress" placeholder="주소를 입력하세요"  required>
+		<label for="address">주소:</label> <input type="text" class="form-control" id="address" placeholder="주소를 입력하세요"  required>
 		<div class="valid-feedback">Valid.</div>
 	</div>
 		<div class="form-group">
@@ -60,14 +60,14 @@
 		<div class="invalid-feedback">-을 제외한 번호만 입력 예)01035978787</div>
 	</div>
 	<div class="form-group">
-		<label for="phone">부모님핸드폰 :</label> <input type="text" class="form-control" id="parentsPhone" placeholder="핸드폰번호를 입력하세요."  required>
+		<label for="parentsPhone">부모님핸드폰 :</label> <input type="text" class="form-control" id="parentsPhone" placeholder="핸드폰번호를 입력하세요."  required>
 		<div class="valid-feedback">Valid.</div>
 		<div class="invalid-feedback">-을 제외한 번호만 입력 예)01035978787</div>
 	</div>
 
 </form>
 <button id="btn-userJoin" class="btn btn-primary"> 병사등록 </button>
-<script src="/js/join.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/join.js"></script>

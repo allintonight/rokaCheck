@@ -29,10 +29,7 @@ public class Vacation {
 	private LocalDate checkin;
 	
 	@Column(columnDefinition = "DATE")
-	private LocalDate checkout;
-	
-	@Column(length = 45)
-	private String type;
+	private LocalDate checkout;	
 	
 	@Column(length = 20)
 	private String status;

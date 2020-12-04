@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<h1>R O K A 출타관리시스템</h1>
+<a href="/main"><h1>R O K A 출타관리시스템</h1></a>
 <form>
 	<div class="form-group">
 		<label for="username">군번 :</label> <input type="text" class="form-control" id="username" placeholder="군번을 입력하세요"  required>
@@ -14,7 +14,7 @@
 		<div class="invalid-feedback">특수문자포함 10자리이상 입력</div>
 	</div>
 		<div class="form-group">
-		<label for="name">이름:</label> <input type="text" class="form-control" id="name" placeholder="비밀번호를 입력하세요"  required>
+		<label for="name">이름:</label> <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요"  required>
 		<div class="valid-feedback">Valid.</div>
 	</div>
 
@@ -70,7 +70,7 @@
 </form>
 
 <button id="btn-adminJoin" class="btn btn-primary"> 관리자등록 </button>
-<script src="/js/join.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/join.js"></script>

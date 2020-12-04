@@ -3,11 +3,12 @@ $('#btn-vacationRegister').on('click', function() {
 			username: $("#username").val(),
 			checkin: $("#checkin").val(),
 			checkout: $("#checkout").val(),
+			status: $("#status").val()
 		};
 
 $.ajax({
-		type : "POST",
-		url : "/vacation/username",
+		type: "POST",
+		url : "/vacation/"+username,
 		data : JSON.stringify(data),
 		contentType : "application/json; charset=utf-8",
 		dataType : "json"
@@ -15,7 +16,7 @@ $.ajax({
 		if (r.status == 200) {
 			console.log(r);
 			alert("휴가등록 성공");
-			location.href = "/";
+			location.href = "/main";
 		} else {
 				console.log(r);
 				alert('회원가입 실패');
