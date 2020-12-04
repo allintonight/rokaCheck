@@ -31,14 +31,15 @@ public class TestUtil {
 	
 	public static User createValidAdmin() {
 		User user = createValidUser();
+		user.setUsername("14-71017869");
 		user.setIsAdmin(1);
 		return user;
 	}
 	
 	public static Vacation createValidVacation() {
 		Vacation vacation = new Vacation();
-		vacation.setCheckin(LocalDate.now());
-		vacation.setCheckout(LocalDate.now().plus(1, ChronoUnit.DAYS));
+		vacation.setCheckin(LocalDate.now().minus(1, ChronoUnit.DAYS));
+		vacation.setCheckout(LocalDate.now());
 		return vacation;
 	}
 	

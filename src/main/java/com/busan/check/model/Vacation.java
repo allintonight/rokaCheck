@@ -13,8 +13,6 @@ import javax.persistence.ManyToOne;
 import com.busan.check.constraint.CheckOutIsAfterCheckIn;
 import com.busan.check.model.converter.VacationStatusConverter;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +21,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @CheckOutIsAfterCheckIn
 public class Vacation {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long no;

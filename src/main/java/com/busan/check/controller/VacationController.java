@@ -17,25 +17,26 @@ import com.busan.check.model.vm.VacationVM;
 import com.busan.check.service.VacationService;
 
 @RestController
-@RequestMapping("/api/1.0/vacations")
+@RequestMapping("/api/1.0")
 public class VacationController {
 
 	@Autowired
 	VacationService vacationService;
 	
-	@PostMapping("/{username}")
+	@PostMapping("/vacations/{username}")
 	public VacationVM createVacation(@Valid @RequestBody Vacation vacation
 								 , @PathVariable String username) {
 		return new VacationVM(vacationService.save(vacation, username));
 	}
 	
-	@GetMapping
-	public Page<VacationVM> getAllUsingVacations(Pageable pageable) {
-		return vacationService.getAllUsingVacations(pageable).map(VacationVM::new);
+	@GetMapping("/vacations")
+	public Page<VacationVM> getAllTodayVacations(Pageable pageable) {
+		return vacationService.getAllTodayVacations(pageable).map(VacationVM::new);
 	}
 	
-	@GetMapping("/{username}")
-	public void getAllUsingVacations() {
-		
+	@GetMapping("/vacations/{username}")
+	public Page<VacationVM> getAllTodayVacationsOfUnit(@PathVariable String username
+													 , Pageable pageable) {
+		return vacationService.getAllTodayVacationsOfUnit(username, pageable).map(VacationVM::new);
 	}
 }

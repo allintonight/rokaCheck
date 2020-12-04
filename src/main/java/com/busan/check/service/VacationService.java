@@ -18,6 +18,7 @@ public class VacationService {
 	private final VacationRepository vacationRepository;
 	private final UserRepository userRepository;
 	
+	
 	public VacationService(VacationRepository vacationRepository, UserRepository userRepository) {
 		this.vacationRepository = vacationRepository;
 		this.userRepository = userRepository;
@@ -33,14 +34,12 @@ public class VacationService {
 		return vacationRepository.save(vacation);
 	}
 
-	public Page<Vacation> getAllUsingVacations(Pageable pageable) {
-		return vacationRepository.findAllByStatus(VacationStatus.USING, pageable);
-	}
-
-	public Page<Vacation> getVacationsOfUnit(String username, Pageable pageable) {
-		User user = userRepository.findAll().get(0);
-		return vacationRepository.findAllByStatusAndUserUnit(VacationStatus.USING, user.getUnit(), pageable);
+	public Page<Vacation> getAllTodayVacations(Pageable pageable) {
+		return vacationRepository.findAllByCheckout(pageable);
 	}
 	
-	
+	public Page<Vacation> getAllTodayVacationsOfUnit(String username, Pageable pageable) {
+		User user = userRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new);
+		return vacationRepository.findAllByStatusAndUserUnit(user.getUnit(), pageable);
+	}
 }
