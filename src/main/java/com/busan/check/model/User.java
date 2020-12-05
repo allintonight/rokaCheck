@@ -12,12 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@DynamicInsert
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,7 +37,7 @@ public class User {
 	@Column(length = 150)
 	private String password;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Vacation> vacations;
 	
 	@OneToOne
@@ -65,10 +67,10 @@ public class User {
 	@Column(length = 100)
 	private String address;
 	
-	@Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT '0'")
-	private String depression;
+	@ColumnDefault( "0")
+	private String  depression;
 	
-	@Column(nullable = false, columnDefinition = "VARCHAR(10) DEFAULT '0'")
+	@ColumnDefault("0")
 	private String tire;
 	
 }

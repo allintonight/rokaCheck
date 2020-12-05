@@ -1,6 +1,5 @@
 package com.busan.check.api;
 
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.busan.check.dto.ResponseDto;
 import com.busan.check.model.EyeCheck;
 import com.busan.check.model.User;
-import com.busan.check.model.Vacation;
 import com.busan.check.repository.EyeRepository;
+
 import com.busan.check.repository.UserRepository;
 import com.busan.check.repository.VacationRepository;
+
+
 import com.busan.check.service.UserService;
 import com.busan.check.service.VacationService;
 
@@ -27,6 +28,7 @@ public class UserApiController {
 	
 	@Autowired
 	private UserService userService;
+
 	
 	@Autowired
 	private VacationService vacationService;
@@ -36,6 +38,8 @@ public class UserApiController {
 	
 	@Autowired
 	private VacationRepository vacationRepository;
+
+
 
 	@Autowired
 	private EyeRepository eyeRepository;
@@ -113,12 +117,11 @@ public class UserApiController {
 		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
-	
-	
+
 	@PostMapping("/message/{username}")
 	public ResponseDto<Integer> message(@PathVariable String username){
 		userService.메세지발송(username);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-	}
-	
+   }
+
 }

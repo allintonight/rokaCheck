@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 	    .authorizeRequests()
-	    .antMatchers("/css/**", "/images/**", "/js/**", "/auth/**")
+	    .antMatchers("/css/**", "/images/**", "/js/**", "/auth/**", "/api/**")
 	    .permitAll()
 	    .anyRequest().authenticated()
 	    .and()
@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	    .loginPage("/auth/login")
 	    .loginProcessingUrl("/auth/loginProc")
 	    .defaultSuccessUrl("/main");
+		
+		http.headers().frameOptions().disable();
 	}
 	
 	// 참고 : .headers().frameOptions().disable() // 아이프레임 접근 막기

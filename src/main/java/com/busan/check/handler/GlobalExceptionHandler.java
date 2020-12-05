@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 		return new GenericResponse(exception.getMessage());
 	}
 	
-	 @ExceptionHandler(value = Exception.class)
+	@ExceptionHandler(value = Exception.class)
 	public ResponseDto<String> handleArgumentException(Exception e) {
 		return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
 	}

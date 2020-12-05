@@ -39,17 +39,23 @@ public class VacationService {
 		return vacationRepository.findAllByCheckout(pageable);
 	}
 	
-	public Page<Vacation> getAllTodayVacationsOfUnit(String username, Pageable pageable) {
-		User user = userRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new);
+	public Page<Vacation> getAllTodayVacationsOfUnit(User user, Pageable pageable) {
 		return vacationRepository.findAllByStatusAndUserUnit(user.getUnit(), pageable);
 	}
 	
-	@Transactional
-	public void 휴가복귀(String username) {
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new IllegalArgumentException("해당유저는 없습니다. 군번 : "+ username));
-		Vacation vacation = vacationRepository.findbyusername(username);
-		vacation.setStatus(VacationStatus.COMPLETED);	
-		
+	public long getCountTodayVacationsOfHierUnits(String unit) {
+		return vacationRepository.countAllByStartsWithUserUnit(unit);		
+	}
+	
+	public Page<Vacation> getAllTodayVacationsOfUnits(String unit, Pageable pageable) {
+		unit = unit.replaceAll("_", " ");
+		return vacationRepository.findAllByStatusAndUserUnit(unit, pageable);
+	}
+
+	public Vacation update(String username) {
+		User user = userRepository.findbyusername(username);
+		Vacation inDB = vacationRepository.findByStatusAndUser(VacationStatus.USING, user);
+		inDB.setStatus(VacationStatus.COMPLETED);
+		return vacationRepository.save(inDB);
 	}
 }
