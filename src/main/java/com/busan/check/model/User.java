@@ -33,7 +33,7 @@ public class User {
 	@Column(length = 150)
 	private String password;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Vacation> vacations;
 	
 	@OneToOne

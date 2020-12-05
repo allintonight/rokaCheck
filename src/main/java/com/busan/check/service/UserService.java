@@ -5,12 +5,14 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.busan.check.model.User;
-
 import com.busan.check.repository.UserRepository;
 import com.busan.check.repository.VacationRepository;
 
@@ -20,21 +22,18 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	@Autowired
-	private VacationRepository vacationRepository;
-
+	
 	@Autowired
 	private BCryptPasswordEncoder encode;
 
 	@Transactional
-	public void 회원가입(User user) {
+	public User 회원가입(User user) {
 		String rawPassword = user.getPassword();
 		String encPassword = encode.encode(rawPassword);
 		user.setPassword(encPassword);
 		user.setIsAdmin(1);
 
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Transactional
@@ -127,6 +126,21 @@ public class UserService {
 		});
 		return userRepository.findbyusername(username);
 	}
+	
+	 public void 메세지발송(String username) {
+         userRepository.findByUsername(username).orElseThrow(()->{return new IllegalArgumentException("사용자 아이디 정보조회 실패");});
+        User user = userRepository.findbyusername(username);
 
+          MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+          parameters.add("api_key", "TMC52IGHR4E1202");
+          parameters.add("msg", "충성! "+user.getName()+" "+user.getRanks()+"  부대에 복귀완료했습니다.");
+          parameters.add("callback", "01035978787");
+          parameters.add("dstaddr", user.getParentsPhone());
+          parameters.add("send_reserve", "0");
 
+          String url = "http://221.139.14.136/APIV2/API/sms_send";
+          ResponseEntity<String> res = new RestTemplate().postForEntity(url, parameters, String.class);
+          System.out.println(res.getBody());
+          System.out.println(res.getStatusCodeValue());
+   }
 }

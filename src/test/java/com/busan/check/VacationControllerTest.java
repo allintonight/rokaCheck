@@ -227,12 +227,23 @@ public class VacationControllerTest {
 		ResponseEntity<TestPage<Object>> response = getVacationsOfMyUnit(admin.getUsername(), new ParameterizedTypeReference<TestPage<Object>>() {});
 		assertThat(response.getBody().getTotalElements()).isEqualTo(1);
 	}
-	@Test @DisplayName("휴가 상태 COMPLATED로 변경시 status 200 받음")
+	@Test @DisplayName("휴가 상태 COMPLETED로 변경시 status 200 받음")
 	void putVacationsOfUser_whenVacationStatusIsUsing_receiveOk() {
 		User user = userRepository.save(TestUtil.createValidUser());
 		vacationService.save(TestUtil.createUsingVacation(), "14-71017860");
-		putVacationsOfUser(user.getUsername(), null, Object.class);
-		
+		ResponseEntity<Object> response = putVacationsOfUser(user.getUsername(), null, Object.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+	@Test @DisplayName("휴가 상태 COMPLETED로 변경시 DB에 반영됨")
+	void putVacationsOfUser_whenVacationStatusIsUsing_updated() {
+		User user = userRepository.save(TestUtil.createValidUser());
+		Vacation vacation = vacationService.save(TestUtil.createUsingVacation(), "14-71017860");
+		vacation.setStatus(VacationStatus.COMPLETED);
+		HttpEntity<Vacation> requestEntity = new HttpEntity<>(vacation);
+		putVacationsOfUser(user.getUsername(), requestEntity, Object.class);
+	
+		Vacation inDB = vacationRepository.findById(vacation.getNo()).get();
+		assertThat(inDB.getStatus()).isEqualTo(VacationStatus.COMPLETED);
 	}
 	
 	

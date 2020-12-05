@@ -4,7 +4,6 @@
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal"/>
 </sec:authorize>
-
 <a href="/main"><h1>R O K A 출타관리시스템 관리자 수정 페이지</h1></a>
 <form>
 	<div class="form-group">

@@ -1,7 +1,5 @@
 package com.busan.check.api;
 
-import java.util.function.Supplier;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.busan.check.dto.ResponseDto;
 import com.busan.check.model.EyeCheck;
 import com.busan.check.model.User;
-import com.busan.check.model.Vacation;
 import com.busan.check.repository.EyeRepository;
-import com.busan.check.repository.UserRepository;
 import com.busan.check.service.UserService;
 
 @RestController
@@ -26,9 +22,6 @@ public class UserApiController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired // 의존성 주입
-	private UserRepository userRepository;
 
 	@Autowired
 	private EyeRepository eyeRepository;
@@ -108,4 +101,9 @@ public class UserApiController {
 		eyeRepository.save(eyeCheck);
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
+	@PostMapping("/message/{username}")
+	public ResponseDto<Integer> message(@PathVariable String username){
+		userService.메세지발송(username);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+   }
 }

@@ -1,5 +1,8 @@
 package com.busan.check.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,12 +36,20 @@ public class HttpController {
 	
 	@GetMapping("/main")
 	public String main(@AuthenticationPrincipal PrincipalDetail principal, Pageable pageable, Model model) {
-		User user = userRepository.findByUsername(principal.getUsername()).orElseThrow(IllegalArgumentException::new);
-		Page<Vacation> page = vacationService.getAllTodayVacationsOfUnit(user.getUsername(), pageable);
-		model.addAttribute(page);
-		return "/main";
+		User user = principal.getUser();
+		Page<Vacation> page = vacationService.getAllTodayVacationsOfUnit(user, pageable);
+		String[] unitArray = user.getUnit().split(" ");
+		List<Long> totalCounts = new ArrayList<>();
+		StringBuffer buffer = new StringBuffer();
+		for (int i = 0; i < unitArray.length; i++) {
+			buffer.append(unitArray[i]);
+			long count = vacationService.getCountTodayVacationsOfHierUnits(buffer.toString());
+			totalCounts.add(count);		
+			buffer.append(" ");
+		}
+		model.addAttribute("page", page);
+		model.addAttribute("user", user);
+		model.addAttribute("totalCounts", totalCounts);
+		return "main";
 	}
-
-	
-	
 }
