@@ -1,4 +1,5 @@
-$('#btn-delete').on('click', function() {
+$('#btn-delete').on('click', function(e) {
+	e.preventDefault();
 	var data =  {
 			username: $("#username").val()
 		};

@@ -1,4 +1,5 @@
-$('#btn-adminJoin').on('click', function() {
+$('#btn-adminJoin').on('click', function(e) {
+	e.preventDefault();
 	var data =  {
 			username: $("#username").val(),
 			password: $("#password").val(),
@@ -35,7 +36,8 @@ $.ajax({
 	});
 });
 
-$('#btn-userJoin').on('click', function() {
+$('#btn-userJoin').on('click', function(e) {
+	e.preventDefault();
 	var data =  {
 			username: $("#username").val(),
 			name: $("#name").val(),

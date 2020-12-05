@@ -35,9 +35,13 @@ public class HttpController {
 	public String main(@AuthenticationPrincipal PrincipalDetail principal, Pageable pageable, Model model) {
 		User user = userRepository.findByUsername(principal.getUsername()).orElseThrow(IllegalArgumentException::new);
 		Page<Vacation> page = vacationService.getAllTodayVacationsOfUnit(user.getUsername(), pageable);
-		model.addAttribute(page);
+		model.addAttribute("page", page);
+		model.addAttribute("user", user);
 		return "/main";
 	}
+
+
+	
 
 	
 	

@@ -1,4 +1,5 @@
-$('#btn-vacationRegister').on('click', function() {
+$('#btn-vacationRegister').on('click', function(e) {
+	e.preventDefault();
 	var data =  {
 			username: $("#username").val(),
 			checkin: $("#checkin").val(),
@@ -8,7 +9,7 @@ $('#btn-vacationRegister').on('click', function() {
 
 $.ajax({
 		type: "POST",
-		url : "/vacation/"+username,
+		url : "/vacation/"+data.username,
 		data : JSON.stringify(data),
 		contentType : "application/json; charset=utf-8",
 		dataType : "json"

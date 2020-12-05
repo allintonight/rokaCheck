@@ -10,7 +10,7 @@ server:
 spring:
   profiles:
     active:
-    - dev
+    - prod
   mvc:
     view:
       prefix: /WEB-INF/views/

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <a href="/main"><h1>R O K A 출타관리시스템 병사 등록 페이지</h1></a>
 <form>

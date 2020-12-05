@@ -2,8 +2,11 @@ package com.busan.check.repository;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,9 +20,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	void deleteByUsername(String username);
 	
-	@Query(value = "SELECT * FROM USER where username =?1", nativeQuery = true)
+		@Query(value = "SELECT * FROM USER where username =?1", nativeQuery = true)
 	   User findbyusername(String username);
 	
-
+		@Query(value = "SELECT * FROM USER where is_admin =0", nativeQuery = true)
+		List<User> findbyuserList();
+		
+		Page<User> findAllByIsAdmin(int isAdmin, Pageable pageable);
 		
 }

@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal" var="principal"/>
-</sec:authorize>
+
 
 <a href="/main"><h1>R O K A 출타관리시스템 관리자 수정 페이지</h1></a>
 <form>
 	<div class="form-group">
-		<label for="username">군번:</label> <input type="username" class="form-control" id="username" value="${principal.username}"  readonly="readonly">
+		<label for="username">군번:</label> <input type="username" class="form-control" id="username" value="${user.username}"  readonly="readonly">
 
 	<div class="form-group">
 		<label for="pwd">패스워드:</label> <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요"  required>

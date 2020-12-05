@@ -1,6 +1,5 @@
 package com.busan.check.api;
 
-import java.util.function.Supplier;
 
 import javax.transaction.Transactional;
 
@@ -19,7 +18,9 @@ import com.busan.check.model.User;
 import com.busan.check.model.Vacation;
 import com.busan.check.repository.EyeRepository;
 import com.busan.check.repository.UserRepository;
+import com.busan.check.repository.VacationRepository;
 import com.busan.check.service.UserService;
+import com.busan.check.service.VacationService;
 
 @RestController
 public class UserApiController {
@@ -27,8 +28,14 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private VacationService vacationService;
+	
 	@Autowired // 의존성 주입
 	private UserRepository userRepository;
+	
+	@Autowired
+	private VacationRepository vacationRepository;
 
 	@Autowired
 	private EyeRepository eyeRepository;
@@ -64,8 +71,7 @@ public class UserApiController {
 		System.out.println("계급"+user.getRanks());
 		System.out.println("부모님폰"+user.getParentsPhone());
 		
-		userService.병사회원가입(user);
-		
+		userService.병사회원가입(user);		
 
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -96,16 +102,23 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 
-
 	@PostMapping("/eye/{username}")
 	public ResponseDto<Integer> EyeUpdate(@PathVariable String username, @RequestBody EyeCheck eyeCheck) {
-		eyeRepository.save(eyeCheck);
+		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
 	@PostMapping("/eyecheck/{username}")
 	public ResponseDto<Integer> EyeCheck(@PathVariable String username, @RequestBody EyeCheck eyeCheck) {
-		eyeRepository.save(eyeCheck);
+		
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
+	
+	
+	@PostMapping("/message/{username}")
+	public ResponseDto<Integer> message(@PathVariable String username){
+		userService.메세지발송(username);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
 }

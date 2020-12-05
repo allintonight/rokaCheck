@@ -5,7 +5,7 @@
 <form>
   <div class="form-group">
       <label for="username">휴가를 등록할 병사의 군번 : </label>
-    <input type="date" class="form-control" placeholder="군번 입력하세요" id="username">
+    <input type="text" class="form-control" placeholder="군번 입력하세요" id="username">
   </div>
     <label for="checkin">휴가시작일 : </label>
     <input type="date" class="form-control" placeholder="휴가시작일 입력하세요" id="checkin">
@@ -20,10 +20,6 @@
 			<option>사용중</option>
 			<option>사용완료</option>
 		</select>
-    <div class="form-group">
-    <label for="checkout">휴가종료일 : </label>
-    <input type="date" class="form-control" placeholder="휴가종료일 입력" id="checkout">
-  </div>
 
 </form>
  <button id="btn-vacationRegister" class="btn btn-primary">휴가등록</button>

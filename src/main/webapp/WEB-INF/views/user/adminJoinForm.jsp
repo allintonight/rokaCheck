@@ -13,9 +13,10 @@
 		<div class="valid-feedback">Valid.</div>
 		<div class="invalid-feedback">특수문자포함 10자리이상 입력</div>
 	</div>
-		<div class="form-group">
-		<label for="name">이름:</label> <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요"  required>
+	<div class="form-group">
+		<label for="name">이름 :</label> <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요"  required>
 		<div class="valid-feedback">Valid.</div>
+		<div class="invalid-feedback">예) 박민기</div>
 	</div>
 
 	<div class="form-group">

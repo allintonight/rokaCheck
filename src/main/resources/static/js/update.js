@@ -1,4 +1,5 @@
-$('#btn-adminUpdate').on('click', function() {
+$('#btn-adminUpdate').on('click', function(e) {
+	e.preventDefault();
 	var data =  {
 			username : $("#username").val(),
 			password: $("#password").val(),
@@ -26,7 +27,8 @@ $('#btn-adminUpdate').on('click', function() {
 	});
 });
 
-$('#btn-userUpdate').on('click', function() {
+$('#btn-userUpdate').on('click', function(e) {
+	e.preventDefault();
 	var data =  {
 			username : $("#username").val(),
 			address: $("#address").val(),

@@ -1,5 +1,6 @@
 package com.busan.check.service;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
@@ -41,5 +42,14 @@ public class VacationService {
 	public Page<Vacation> getAllTodayVacationsOfUnit(String username, Pageable pageable) {
 		User user = userRepository.findByUsername(username).orElseThrow(IllegalArgumentException::new);
 		return vacationRepository.findAllByStatusAndUserUnit(user.getUnit(), pageable);
+	}
+	
+	@Transactional
+	public void 휴가복귀(String username) {
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new IllegalArgumentException("해당유저는 없습니다. 군번 : "+ username));
+		Vacation vacation = vacationRepository.findbyusername(username);
+		vacation.setStatus(VacationStatus.COMPLETED);	
+		
 	}
 }
